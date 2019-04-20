@@ -1,5 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyparser = require('body-parser');
+
+
+
 
 const usersRoutes = require('./routes/api/users');
 const profileRoutes = require('./routes/api/profile');
@@ -7,6 +11,11 @@ const postsRoutes = require('./routes/api/posts');
 
 
 const app = express();
+
+
+//bodyparser middleware  바디파서쓸라면 그냥 있어야함
+app.use(bodyparser.urlencoded({extended:false}));
+app.use(bodyparser.json());
 
 //db config
 const db = require('./config/keys').mongoURI;
