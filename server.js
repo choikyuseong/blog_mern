@@ -1,8 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-
-
 const usersRoutes = require('./routes/api/users');
 const profileRoutes = require('./routes/api/profile');
 const postsRoutes = require('./routes/api/posts');
@@ -10,11 +8,11 @@ const postsRoutes = require('./routes/api/posts');
 
 const app = express();
 
-
-
 //db config
 const db = require('./config/keys').mongoURI;
 
+
+mongoose.Promise = global.Promise; //
 //connect to mongo
 mongoose
     .connect(db,{
