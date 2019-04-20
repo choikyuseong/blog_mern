@@ -27,5 +27,5 @@ const UserSchema = new Schema({
 
 // const User = mongoose.model('users', UserSchema); // DB에 users를 생성하여 그 안에 UserSchema를 넣음
 // module.exports = User;  아래랑 같음
-module.exports = User = mongoose.model('users',UserSchema);
+module.exports = User = mongoose.model('users', UserSchema);
 

@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyparser = require('body-parser');
+const passport = require('passport');
 
 
 
@@ -11,6 +12,13 @@ const postsRoutes = require('./routes/api/posts');
 
 
 const app = express();
+
+
+
+//passport middleware
+app.use(passport.initialize());
+//passport config
+require('./config/passport')(passport);
 
 
 //bodyparser middleware  바디파서쓸라면 그냥 있어야함
