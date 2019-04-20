@@ -12,6 +12,22 @@ const app = express();
 
 
 
+//db config
+const db = require('./config/keys').mongoURI;
+
+//connect to mongo
+mongoose
+    .connect(db,{
+        useNewUrlParser:true,
+        useCreateIndex:true
+    }) //adding new mongo url parser
+    .then( () => console.log('mongodb connected'))
+    .catch(err => console.log('err'));
+//connect to mongo end
+
+
+
+
 //user routes  , localhost:3000/api/users 경로면 usersRoutes 안에 지정한 경로로 열림
 app.use('/api/users' , usersRoutes);
 app.use('/api/profile', profileRoutes);
