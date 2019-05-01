@@ -5,6 +5,8 @@ const passport = require('passport');
 
 //lord validation
 const validateProfileInput = require('../../validation/profile');
+const validateEducationInput = require('../../validation/education');
+const validateExperienceInput = require('../../validation/experience');
 
 const profileModel = require('../../models/Profile');
 const userModel = require('../../models/User');
@@ -177,8 +179,87 @@ router.get('/user/:user_id' , (req, res ) => {
 
 });
 
+// router POST api/profile/experience
+// desc add experience to profile
+// access public
+
+router.post('/experience' , (req, res) => {
+
+    const {errors, isValid} = validateExperienceInput(req.body);
+
+    //check validation
+    if (!isValid) {
+        return res.status(404).json(errors);
+    }
 
 
+
+    profileModel.findOne({user : req.user.id})
+        .then(profile => {
+            const newExp ={
+                title: req.body.title,
+                company:req.body.company,
+                location:req.body.location,
+                from:req.body.from,
+                to:req.body.to,
+                current:req.body.current,
+                description:req.body.description
+
+            };
+
+
+            //add to exp array
+            profileModel.experience.unshift(newExp);
+            profileModel
+                .save()
+                .then(profile => res.json(profile))
+                .catch(err => res.status(404).json(err))
+
+        })
+        .catch(err = res.status(404).json(err));
+
+
+});
+
+
+
+// router POST api/profile/education
+// desc add education to profile
+// access public
+
+router.post('/education' , (req, res) => {
+    const {errors , isValid} = validateEducationInput(req.body);
+    //check validation
+    if (!isValid) {
+        return res.status(404).json(errors);
+    }
+
+    profileModel.findOne({user : req.user.id})
+        .then(profile => {
+            const newEdu ={
+                school: req.body.school,
+                degree:req.body.degree,
+                fieldofstudy:req.body.fieldofstudy,
+                from:req.body.from,
+                to:req.body.to,
+                current:req.body.current,
+                description:req.body.description
+
+            };
+
+
+            //add to exp array
+            profileModel.education.unshift(newEdu);
+            profileModel
+                .save()
+                .then(profile => res.json(profile))
+                .catch(err => res.status(404).json(err))
+
+        })
+        .catch(err = res.status(404).json(err));
+
+
+});
 
 
 module.exports = router;
