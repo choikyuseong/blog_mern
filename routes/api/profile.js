@@ -262,4 +262,72 @@ router.post('/education' , (req, res) => {
 });
 
 
+
+// router DELETE api/profile/experience/:exp_id
+// desc Delete experience from profile
+// access private
+
+router.delete('/experience/:exp_id' ,(req, res)=> {
+    profileModel.findOne({ user: req.user.id})
+        .then(profile =>{
+            //get remove index
+            const removeIndex = profile.experience
+                .map(itme => item.id)
+                .indexOf(req.params.exp_id)
+
+            //splice out of array
+            profile.experience.splice(removeIndex,1);
+            //save
+            profile.save()
+                .then(profile => res.json(profile))
+                .catch(err => res.status(404).json(err));
+        })
+        .catch(err => res.status(404).json(err));
+});
+
+
+
+// router DELETE api/profile/education/:edu_id
+// desc Delete education from profile
+// access private
+
+router.delete('/education/:edu_id' ,(req, res)=> {
+    profileModel.findOne({ user: req.user.id})
+        .then(profile =>{
+            //get remove index
+            const removeIndex = profile.education
+                .map(itme => item.id)
+                .indexOf(req.params.exp_id)
+
+            //splice out of array
+            profile.education.splice(removeIndex,1);
+            //save
+            profile.save()
+                .then(profile => res.json(profile))
+                .catch(err => res.status(404).json(err));
+        })
+        .catch(err => res.status(404).json(err));
+});
+
+
+
+//router DELETE api/profile
+// desc Delete user and profile
+// access Private
+
+router.delete('/', (req, res) => {
+    profileModel.findOne({user : req.user.id})
+        .then(()=> {
+            userModel.findOneAndRemove({ _id : req.user.id})
+                .then(() => res.json({ success : true}))
+                .catch(err => res.status(404).json(err));
+        })
+        .catch(err => res.status(404).json(err));
+});
+
+
+
+
+
+
 module.exports = router;
