@@ -48,7 +48,7 @@ mongoose.set('useFindAndModify',false);  //옵션 없어도됨
 //user routes  , localhost:3000/api/users 경로면 usersRoutes 안에 지정한 경로로 열림
 app.use('/api/users' , usersRoutes);
 app.use('/api/profile', profileRoutes);
-app.use('/api/post' , postsRoutes);
+app.use('/api/posts' , postsRoutes);
 
 
 
