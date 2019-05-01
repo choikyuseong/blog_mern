@@ -26,7 +26,7 @@ const ProfileSchema = new Schema({
         required: true
     },
     skills: {
-        type: [String],
+        type: [String],   //	"status":"dd", "handle" :"dd",  "skills" :"aaa, ddd , aaaz"  저런식으로 타입이 [String] 일경우  json받는 형태는 "skills" :"aaa, ddd , aaaz"  이어야한다.
         required: true
     },
     bio: {
