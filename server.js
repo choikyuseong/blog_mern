@@ -38,6 +38,8 @@ mongoose
     }) //adding new mongo url parser
     .then( () => console.log('mongodb connected'))
     .catch(err => console.log('err'));
+
+mongoose.set('useFindAndModify',false);  //옵션 없어도됨
 //connect to mongo end
 
 

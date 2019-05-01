@@ -109,5 +109,76 @@ router.post('/', authCheck, (req, res) => {
 
 
 
+// router Get api/profile/all
+// desc Get all profiles
+// access public
+
+router.get('/all' , (req, res) => {
+
+    const error = {};
+    profileModel.find()
+        .populate('user' , ['name','avator'])  //어떤 정보를 불러올거냐 select
+        .then(profiles => {
+            if (!profiles){
+                errors.noprofile = 'there is no profiles';
+                return res.status(404).json(errors);
+            }
+            res.json(profiles);
+        })
+        .catch(err => res.status(404).json({
+            profile: 'there is no profile'
+        }));
+
+
+
+});
+
+// router GET api/profile/handle/:handle
+// desc Get profile by handle
+// access public
+
+router.get('/handle/:handle' , (req, res ) => {
+
+    const errors = {};
+    profileModel.findOne({handle : req.params.handle})
+        .populate('user' , ['name','avator'])  //어떤 정보를 불러올거냐 select
+        .then(profiles => {
+            if (!profiles){
+                errors.noprofile = 'there is no profiles for this user';
+                return res.status(404).json(errors);
+            }
+            res.json(profiles);
+        })
+        .catch(err => res.status(404).json({
+            profile: err
+        }));
+
+});
+
+// router GET api/profile/user/:user_id
+// desc Get profile by user ID
+// access public
+
+router.get('/user/:user_id' , (req, res ) => {
+
+    const errors = {};
+    profileModel.findOne({user : req.params.user_id})
+        .populate('user' , ['name','avator'])  //어떤 정보를 불러올거냐 select
+        .then(profile => {
+            if (!profile){
+                errors.noprofile = 'there is no profiles for this user';
+                return res.status(404).json(errors);
+            }
+            res.json(profile);
+        })
+        .catch(err => res.status(404).json({
+            profile: err
+        }));
+
+});
+
+
+
+
 
 module.exports = router;
