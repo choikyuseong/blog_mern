@@ -183,7 +183,7 @@ router.get('/user/:user_id' , (req, res ) => {
 // desc add experience to profile
 // access public
 
-router.post('/experience' , (req, res) => {
+router.post('/experience'  , authCheck, (req, res) => {
 
     const {errors, isValid} = validateExperienceInput(req.body);
 
@@ -267,7 +267,7 @@ router.post('/education' , (req, res) => {
 // desc Delete experience from profile
 // access private
 
-router.delete('/experience/:exp_id' ,(req, res)=> {
+router.delete('/experience/:exp_id'  , authCheck ,(req, res)=> {
     profileModel.findOne({ user: req.user.id})
         .then(profile =>{
             //get remove index
