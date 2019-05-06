@@ -1,11 +1,19 @@
-import React from 'react';
+import React , {Component} from 'react';
+import Footer from './components/layout/Footer';
+import Navbar from './components/layout/Navbar';
+import Landing from "./components/layout/Landing";
 
 import './App.css';
+
 
 function App() {
   return (
     <div className="App">
-     <h1> 안녕하세요 </h1>
+
+        <Navbar/>
+        <Landing/>
+        <Footer/>
+
 
     </div>
   );
