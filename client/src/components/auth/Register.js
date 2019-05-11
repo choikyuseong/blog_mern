@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios'; //reducer로 감
+import { withRouter } from 'react-router-dom';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
@@ -22,6 +23,12 @@ class Register extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {  // componentWillReceiveProps ,  componentDidMount   검색해볼것
+        if(nextProps.errors) {
+            this.setState({errors:nextProps.errors});
+        }
+    }
+
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value });
     }
@@ -41,7 +48,7 @@ class Register extends Component {
         //     .then(res => console.log(res.data))
         //     .catch(err => this.setState({ errors: err.response.data }));
 
-        this.props.registerUser(newUser);
+        this.props.registerUser(newUser, this.props.history);
     }
 
 
@@ -141,14 +148,16 @@ class Register extends Component {
 
 Register.propTypes = {
     registerUser:PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired
+    auth: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state =>({
-    auth:state.auth
+    auth:state.auth,
+    errors: state.errors
 });
 
 
-export default connect(mapStateToProps, {registerUser})(Register);
+export default connect(mapStateToProps, {registerUser})(withRouter(Register));
 
 
