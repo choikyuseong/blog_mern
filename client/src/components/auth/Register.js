@@ -51,6 +51,11 @@ class Register extends Component {
         this.props.registerUser(newUser, this.props.history);
     }
 
+    componentDidMount() {
+        if (this.props.auth.isAuthenticated) {
+            this.props.history.push('./dashboard');
+        }
+    }
 
     render() {
 
