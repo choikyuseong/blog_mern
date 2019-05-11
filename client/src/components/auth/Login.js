@@ -1,4 +1,5 @@
-import React ,{Component} from 'react';
+
+import React, { Component } from 'react';
 
 export default class Login extends Component {
 
@@ -6,23 +7,18 @@ export default class Login extends Component {
         super();
         this.state = {
             email: '',
-            password:'',
+            password: '',
             errors: {}
         };
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-
-    }
-
-    onChange(e) {
-        this.setState({ [e.target.name]: e.target.value});
     }
 
     onSubmit(e) {
         e.preventDefault();
 
-        const user ={
+        const user = {
             email: this.state.email,
             password: this.state.password
         };
@@ -30,32 +26,37 @@ export default class Login extends Component {
         console.log(user);
     }
 
+    onChange(e) {
+        this.setState({ [e.target.name]: e.target.value });
+    }
+
+
     render() {
-        return(
+        return (
             <div className="login">
                 <div className="container">
                     <div className="row">
                         <div className="col-md-8 m-auto">
                             <h1 className="display-4 text-center">Log In</h1>
                             <p className="lead text-center">
-                               Sign in to your DevConnector account
+                                Sign in to your DevConnector account
                             </p>
                             <form onSubmit={this.onSubmit}>
                                 <div className="form-group">
                                     <input
-                                    type="email"
-                                    className="form-control form-control-lg"
-                                    placeholder="Email Address"
-                                    name="email"
-                                    value={this.state.email}
-                                    onChange={this.onChange}
+                                        type="email"
+                                        className="form-control form-control-lg"
+                                        placeholder="Email Address"
+                                        name="email"
+                                        value={this.state.email}
+                                        onChange={this.onChange}
                                     />
                                 </div>
                                 <div className="form-group">
                                     <input
                                         type="password"
                                         className="form-control form-control-lg"
-                                        placeholder="Insert Password"
+                                        placeholder="Password"
                                         name="password"
                                         value={this.state.password}
                                         onChange={this.onChange}
@@ -68,7 +69,5 @@ export default class Login extends Component {
                 </div>
             </div>
         );
-
-    };
-
+    }
 }
